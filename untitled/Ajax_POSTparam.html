@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax POST参数设置</title>
+    <style>
+        #result{
+            width:200px;
+            height: 200px;
+            border:1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div id="result"></div>
+</body>
+    <script type="text/javascript">
+        const result = document.getElementById("result");
+        result.addEventListener("mouseover",function () {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST',"http://localhost:8000/server");
+            xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+            xhr.setRequestHeader('name',"twice");
+            xhr.send('a=100&b=200&c=300');
+            xhr.onreadystatechange = function () {
+                if(this.readyState === 4){
+                    if(this.status >= 200 && this.status < 300){
+                        result.innerText = this.response;
+                    }
+                }
+            }
+        })
+
+
+    </script>
+</html>

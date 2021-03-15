@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Get请求</title>
+    <style>
+        #result{
+            width:200px;
+            height: 200px;
+            border:1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <button>点击发送请求</button>
+    <div id="result"></div>
+</body>
+<script type="text/javascript" >
+    var button = document.getElementsByTagName("button")[0];
+    const result = document.getElementById("result");
+    
+    button.onclick = function () {
+        //创建对象
+        const xhr = new XMLHttpRequest();
+        //初始化 设置请求方式和url
+        xhr.open('GET','http://localhost:8000/server');
+        //方法
+        xhr.send();
+        //事件绑定 处理服务端返回结果
+        /*
+        * readystate xhr对象的属性 五种：
+        *  0：未初始化
+        *  1：open方法调用完毕
+        *  2：send方法调用完毕
+        *  3：服务端返回部分结果
+        *  4：服务端返回了所有结果
+        * */
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4){
+                //判断响应状态码
+                if(this.status >= 200 && this.status < 300){
+                    //处理结果
+                    //1.相应行
+                    console.log(this.status); //响应状态码
+                    console.log(this.statusText); //响应字符串
+                    console.log(this.getAllResponseHeaders()); // 所有响应头
+                    console.log(this.response); //响应体
+                    result.innerText = this.response;
+                }else{
+
+                }
+            }
+        }
+    }
+</script>
+</html>
